@@ -214,7 +214,7 @@ async def _wardial_async(hosts, max_connections=500, timeout=10, schema='http'):
         results = []
         for host in hosts:
             results.append(is_server_at_host(session,host))
-        return await ayncio.gather(*results)
+        return await asyncio.gather(*results)
 
 
 def wardial(hosts, **kwargs):
