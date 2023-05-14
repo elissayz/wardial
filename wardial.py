@@ -47,8 +47,10 @@ def enumerate_ips(start_ip, n):
     >>> list(enumerate_ips('8.8.8.8', 10))
     ['8.8.8.8', '8.8.8.9', '8.8.8.10', '8.8.8.11', '8.8.8.12', '8.8.8.13', '8.8.8.14', '8.8.8.15', '8.8.8.16', '8.8.8.17']
 
-    The following tests ensure that the correct number of ips get returned as a generator, and not a list.
-    Ensuring that the return type is a generator is a proxy for testing for space efficiency of the function.
+    The following tests ensure that the correct
+    number of ips get returned as a generator, and not a list.
+    Ensuring that the return type is a generator is a proxy
+    for testing for space efficiency of the function.
 
     >>> type(enumerate_ips('8.8.8.8', 10))
     <class 'generator'>
@@ -67,8 +69,10 @@ def enumerate_ips(start_ip, n):
 
 def netmask_to_ips(netmask):
     '''
-    A netmask is a convenient shorthand for describing a range of consecutive ip addresses.
-    For details on the format, see: <https://www.hacksplaining.com/glossary/netmasks>
+    A netmask is a convenient shorthand for describing
+    a range of consecutive ip addresses.
+    For details on the format, see: 
+    <https://www.hacksplaining.com/glossary/netmasks>
 
     Google is assigned the following netblock (among many others as well):
 
@@ -173,12 +177,15 @@ async def _wardial_async(hosts, max_connections=500, timeout=10, schema='http'):
     >>> loop.close()
 
     NOTE:
-    Testing IO functions is made extra hard because they rely on IO performing correctly.
-    The tests above won't work if the google.com or microsoft.com webpages go down.
+    Testing IO functions is made extra hard because
+    they rely on IO performing correctly.
+    The tests above won't work if the google.com
+    or microsoft.com webpages go down.
 
     NOTE:
     This is a helper function for the wardial function.
-    In python, functions prefixed with an underscore are intended to be thought of as "private" or "internal" functions,
+    In python, functions prefixed with an underscore are
+    intended to be thought of as "private" or "internal" functions,
     and not as functions that should be called directly by a user.
     '''
     connector = aiohttp.TCPConnector(
@@ -206,8 +213,8 @@ async def _wardial_async(hosts, max_connections=500, timeout=10, schema='http'):
         # Modify the code to use the `asyncio.gather` function to enable concurrency.
         results = []
         for host in hosts:
-            results.append(await is_server_at_host(session,host))
-        return results
+            results.append(is_server_at_host(session,host))
+        return await ayncio.gather(*results)
 
 
 def wardial(hosts, **kwargs):
@@ -227,7 +234,14 @@ def wardial(hosts, **kwargs):
     # and use this event loop to call the `_wardial_async` function.
     # Ensure that all of the kwargs parameters get passed to `_wardial_async`.
     # You will have to do some post-processing of the results of this function to convert the output.
-    return []
+    working_host = []
+    loop = anycio.new_event_loop()
+    xs = loop.run_until_complete)_wardian_aync(hosts, **kwargs)
+    for i, x in enumerate(xs):
+        if x:
+            working_host.append(hosts[i])
+    loop.close()
+    return working_host
 
 if __name__=='__main__':
 
