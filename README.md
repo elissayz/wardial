@@ -6,7 +6,7 @@
 
 **Learning Objectives:**
 
-1. Learn to use and write async functions
+1. Learn to use and write async functions!
 1. Increase understanding of internet architecture
 
 ## Background
